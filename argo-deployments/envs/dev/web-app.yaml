@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-app-dev
+  namespace: argocd
+spec:
+  destination:
+    namespace: test-app-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./manifests/web-app
+    repoURL: https://bb.csioz.gov.pl/scm/test/argocd-test.git
+    helm:
+      valueFiles:
+        - values-dev.yaml
+  syncPolicy:
+    automated:
+      selfHeal: false
+      allowEmpty: false
+      prune: false
+---

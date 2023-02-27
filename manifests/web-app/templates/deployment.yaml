@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-app-{{ .Values.Environment }}
+  name: test-app-{{ .Values.Environment }}
+  namespace: test-app-{{ .Values.Environment }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app-{{ .Values.Environment }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: test-app-{{ .Values.Environment }}
+    spec:
+      containers:
+      - image: matixooo/argodemo:latest
+        name: test-app-{{ .Values.Environment }}
+        env:
+          - name: MSG
+            value: {{ .Values.MSG }}

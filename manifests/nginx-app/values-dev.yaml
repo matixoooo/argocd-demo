@@ -1,0 +1,5 @@
+Environment: dev
+
+URL: http://test-app-dev:8000
+
+nodePort: 32281

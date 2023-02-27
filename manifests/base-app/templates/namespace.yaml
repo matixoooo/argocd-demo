@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-app-{{ .Values.Environment }}
+  labels:
+    name: test-app-{{ .Values.Environment }}
+---

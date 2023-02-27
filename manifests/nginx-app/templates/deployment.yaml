@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-{{ .Values.Environment }}
+  name: nginx-{{ .Values.Environment }}
+  namespace: test-app-{{ .Values.Environment }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-{{ .Values.Environment }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nginx-{{ .Values.Environment }}
+    spec:
+      imagePullSecrets:
+      - name: registry-credentials
+      containers:
+        - image: nginx:latest
+          imagePullPolicy: Always
+          name: nginx-{{ .Values.Environment }}
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+              name: nginx-conf-{{ .Values.Environment }}
+      restartPolicy: Always
+      volumes:
+        - name: nginx-conf-{{ .Values.Environment }}
+          configMap:
+            name: nginx-conf-{{ .Values.Environment }}
+status: {}

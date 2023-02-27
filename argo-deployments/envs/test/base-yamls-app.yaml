@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: base-yamls-app-test
+  namespace: argocd
+spec:
+  destination:
+    namespace: test-app-test
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./manifests/base-app
+    repoURL: https://bb.csioz.gov.pl/scm/test/argocd-test.git
+    helm:
+      valueFiles:
+        - values-test.yaml
+  syncPolicy:
+    automated:
+      selfHeal: false ## w momencie usuniecia obiektu z klastra obiekt automatycznie pojawia sie spowrotem, przy zmianie konfiguracji obiektu dzieje sie to samo.
+      allowEmpty: false ###
+      prune: false ### w momencie usuniecia obiektu z dashboardu argocd server obiekt automatycznie zostaje usuniety rowniez z klastra.
+---

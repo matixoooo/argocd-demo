@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-app-{{ .Values.Environment }}
+  name: test-app-{{ .Values.Environment }}
+  namespace: test-app-{{ .Values.Environment }}
+spec:
+  ports:
+    - name: "8000"
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: test-app-{{ .Values.Environment }}
+status:
+  loadBalancer: {}

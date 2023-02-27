@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2hhcmJvci5jZXouZ292LnBsIjp7InVzZXJuYW1lIjoiamVua2luc19jc2lveiIsInBhc3N3b3JkIjoiNzRIejV4ck15RiIsImVtYWlsIjoiZGV2b3BzX2VrcmV3QGNlei5nb3YucGwiLCJhdXRoIjoiYW1WdWEybHVjMTlqYzJsdmVqbzNORWg2TlhoeVRYbEcifX19
+kind: Secret
+metadata:
+  name: regcred
+  namespace: test-app-{{ .Values.Environment }}
+type: kubernetes.io/dockerconfigjson
